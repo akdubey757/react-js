@@ -116,7 +116,7 @@ function Services() {
             © Company Theme. All Rights Reserved.
             <div className="credits">
            
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a></div>
+              Designed by <a href="#">A.k.Dubey</a></div>
           </div>
         </div>
       </div>
