@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { DataTable } from 'react-data-components';
+
 
 const Users = () => {
   const [users, setUser] = useState([]);
-
+  var columns = [
+    { title: 'id', prop: 'id'  },
+    { title: 'Name', prop: 'name' },
+    { title: 'Username', prop: 'username' },
+    { title: 'Email', prop: 'email' }
+  ];
+  
+  // var data = [
+  //   { name: 'name value', city: 'city value', address: 'address value', phone: 'phone value' }
+  //   // It also supports arrays
+  //   // [ 'name value', 'city value', 'address value', 'phone value' ]
+  // ];
   useEffect(() => {
     loadUsers();
   }, []);
@@ -12,55 +25,51 @@ const Users = () => {
   const loadUsers = async () => {
     const result = await axios.get("https://jsonplaceholder.typicode.com/users");
     setUser(result.data.reverse());
+    {console.log("test",users)}
   };
 
-  const deleteUser = async id => {
-    await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
-    loadUsers();
-  };
+  
 
   return (
+    
     <div>
-      <div className="py-4">
-        <h1>Home Page</h1>
-        <table class="table border shadow">
+      <div  style={{ padding: 80 }} className="py-4">
+      
+
+        <h1>Users</h1>
+        {/* <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">User Name</th>
               <th scope="col">Email</th>
-              <th>Action</th>
+              
             </tr>
           </thead>
           <tbody>
             {users.map((user, index) => (
+               
               <tr>
                 <th scope="row">{index + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>
-                  <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
-                    View
-                  </Link>
-                  <Link
-                    class="btn btn-outline-primary mr-2"
-                    to={`/users/edit/${user.id}`}
-                  >
-                    Edit
-                  </Link>
-                  <Link
-                    class="btn btn-danger"
-                    onClick={() => deleteUser(user.id)}
-                  >
-                    Delete
-                  </Link>
-                </td>
+                
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
+
+
+<DataTable
+      keys="name"
+      columns={columns}
+      initialData={users}
+      initialPageLength={5}
+      initialSortBy={{ prop: 'city', order: 'descending' }}
+    />
+ 
       </div>
     </div>
   );
